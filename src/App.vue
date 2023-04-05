@@ -5,15 +5,24 @@
         {{ livro.nome }}
       </li>
     </ul>
-    {{ $store.state.acao }}
+    <h2>Livros Lidos</h2>
+    <ul>
+      <li v-for="livro in livrosLidos(true)" :key="livro.nome">
+        {{ livro.nome }}
+      </li>
+    </ul>
+    {{ $store.state.acao.acao }}
+
    <Aluno /> 
    <Curso />
+
   </div>
 </template>
 
 <script>
 import Aluno from "@/components/Aluno.vue";
 import Curso from "@/components/Curso.vue"
+import { mapGetters } from "vuex";
 
 
 
@@ -24,8 +33,13 @@ export default {
     Curso,
   }, 
 
+  computed: {
+    ...mapGetters(["livrosLidos"])
+  },
+
   created() {
-    this.$store.dispatch("puxarAcao");
+    console.log(this.$store)
+    this.$store.dispatch("acao/puxarAcao");
   }
 }
 </script>
